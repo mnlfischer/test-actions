@@ -34,8 +34,8 @@ jobs:
         run: |
           echo "${{ env.RELEASE_TAG }}"
           echo "${{ env.RELEASE_NOTES }}"
-          echo "${{ github }}"
-          echo "git log main --pretty="- %s""
+          echo "${{ toJSON(github) }}"
+          git log main --pretty="- %s
 
       - name: Create Release
         id: create_release
