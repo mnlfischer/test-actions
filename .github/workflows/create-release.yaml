@@ -14,14 +14,6 @@ jobs:
         id: release_notes
         run: |
             echo "RELEASE_NOTES=$(git log --pretty="- %s")" >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ env.RELEASE_NOTES }}
-          draft: false
-          prerelease: false
+      - name: Post Release notes
+        run: |
+          echo "${{ env.RELEASE_NOTES }}"
