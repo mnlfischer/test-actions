@@ -28,7 +28,7 @@ jobs:
       - name: Set release notes
         id: release_notes
         run: |
-            echo "RELEASE_NOTES=$(git log main...release/${{ env.RELEASE_TAG }} --pretty="- %s")" >> $GITHUB_ENV
+            echo "RELEASE_NOTES=$(git log release/${{ env.RELEASE_TAG }}... --pretty="- %s")" >> $GITHUB_ENV
 
       - name: Post Release notes
         run: |
