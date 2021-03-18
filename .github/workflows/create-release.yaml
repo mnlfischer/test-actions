@@ -1,7 +1,8 @@
 on:
-  push:
-   branches:
+  pull_request:
+    branches:
       - main
+    types: [closed]
 
 name: Create Release
 
@@ -12,21 +13,31 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v2
+
+      - name: Setup git config for bot
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
       - name: Set release notes
         id: release_notes
         run: |
+            echo "RELEASE_TAG=$(echo ${GITHUB_REF} | grep -o  '[^/]\+$')" >> $GITHUB_ENV
             echo "RELEASE_NOTES=$(git log --pretty="- %s")" >> $GITHUB_ENV
+
       - name: Post Release notes
         run: |
+          echo "${{ env.RELEASE_TAG }}"
           echo "${{ env.RELEASE_NOTES }}"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: 1.2.3
-          release_name: Release 123
-          body: ${{ env.RELEASE_NOTES }}
-          draft: false
-          prerelease: false
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #   with:
+      #     tag_name: 1.2.4
+      #     release_name: Release 125
+      #     body: ${{ env.RELEASE_NOTES }}
+      #     draft: false
+      #     prerelease: false
