@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >dasd
-          Learn React text
+          Learn React add
         </a>
       </header>
     </div>
