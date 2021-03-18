@@ -35,7 +35,6 @@ jobs:
           echo "${{ env.RELEASE_TAG }}"
           echo "${{ env.RELEASE_NOTES }}"
           echo "${{ github }}"
-          echo "${{ pull_request }}"
           echo "git log main --pretty="- %s""
 
       - name: Create Release
