@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches:
-    - 'release/**'
+    - main
     types: [closed]
 
 name: Create Release
@@ -24,7 +24,7 @@ jobs:
         id: release_notes
         run: |
             echo "RELEASE_TAG=$(echo ${{ github.head_ref }} | grep -o  '[^/]\+$')" >> $GITHUB_ENV
-            echo "RELEASE_NOTES=$(git log --pretty="- %s")" >> $GITHUB_ENV
+            echo "RELEASE_NOTES=$(git log main..release/2.0.22 --pretty="- %s")" >> $GITHUB_ENV
 
       - name: Post Release notes
         run: |
