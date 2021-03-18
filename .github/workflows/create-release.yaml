@@ -22,14 +22,14 @@ jobs:
       - name: Set release notes
         id: release_notes
         run: |
-            echo "${{ env.github.ref }}"
+            echo ${{ env.github.ref }}
             echo "RELEASE_TAG=$(echo ${github.ref} | grep -o  '[^/]\+$')" >> $GITHUB_ENV
             echo "RELEASE_NOTES=$(git log --pretty="- %s")" >> $GITHUB_ENV
 
       - name: Post Release notes
         run: |
           echo "${{ env.RELEASE_TAG }}"
-          echo "${{ env.RELEASE_NOTES }}"
+          echo ${github.ref} | grep -o  '[^/]\+$')
 
       # - name: Create Release
       #   id: create_release
