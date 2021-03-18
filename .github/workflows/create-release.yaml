@@ -22,6 +22,7 @@ jobs:
       - name: Set release notes
         id: release_notes
         run: |
+            echo "${{ env.github.ref }}"
             echo "RELEASE_TAG=$(echo ${github.ref} | grep -o  '[^/]\+$')" >> $GITHUB_ENV
             echo "RELEASE_NOTES=$(git log --pretty="- %s")" >> $GITHUB_ENV
 
