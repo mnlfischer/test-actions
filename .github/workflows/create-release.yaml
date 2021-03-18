@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches:
-      - main
+      - releases/
     types: [closed]
 
 name: Create Release
