@@ -10,6 +10,7 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v2
