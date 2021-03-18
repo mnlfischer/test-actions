@@ -43,6 +43,5 @@ jobs:
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           release_name: ${{ env.RELEASE_TAG }}
-          body: ${{ env.RELEASE_NOTES }}
           draft: false
           prerelease: false
