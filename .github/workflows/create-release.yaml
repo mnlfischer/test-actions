@@ -19,3 +19,14 @@ jobs:
       - name: Post Release notes
         run: |
           echo "${{ env.RELEASE_NOTES }}"
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: 1.2.3
+          release_name: Release 123
+          body: ${{ env.RELEASE_NOTES }}
+          draft: false
+          prerelease: false
