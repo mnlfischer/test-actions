@@ -26,7 +26,7 @@ jobs:
       - name: Set release tag
         id: release_tag
         run: |
-            echo "RELEASE_TAG=$(echo ${{ github.head.ref }} | grep -o  '[^/]\+$')" >> $GITHUB_ENV
+            echo "RELEASE_TAG=$(echo ${{ github.head_ref }} | grep -o  '[^/]\+$')" >> $GITHUB_ENV
 
       - name: Set release notes
         id: release_notes
