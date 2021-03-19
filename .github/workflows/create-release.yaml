@@ -32,14 +32,12 @@ jobs:
         id: release_notes
         run: |
             git fetch
-            echo "RELEASE_NOTES=$(git log origin/${{ github.event.pull_request.head.ref }}.. --pretty="- %s")" >> $GITHUB_ENV
+            echo "RELEASE_NOTES=$(git log ${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }} --pretty="- %s")" >> $GITHUB_ENV
 
       - name: Post Release notes
         run: |
           echo "${{ env.RELEASE_TAG }}"
           echo "${{ env.RELEASE_NOTES }}"
-          echo "${{ toJSON(github) }}"
-          git log main --pretty="- %s
 
       - name: Create Release
         id: create_release
