@@ -32,7 +32,8 @@ jobs:
         id: release_notes
         run: |
             git branch
-            git log git log main..${{ github.head_ref }}
+            git log
+            echo ${{ toJson(github) }}
             echo "RELEASE_NOTES=$(git log origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }} --pretty="- %s")" >> $GITHUB_ENV
 
       - name: Post Release notes
