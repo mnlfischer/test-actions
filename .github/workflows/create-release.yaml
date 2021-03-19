@@ -15,7 +15,8 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
       - name: Setup git config for bot
         run: |
@@ -30,7 +31,8 @@ jobs:
       - name: Set release notes
         id: release_notes
         run: |
-            echo "RELEASE_NOTES=$(git log main --pretty="- %s")" >> $GITHUB_ENV
+            git fetch
+            echo "RELEASE_NOTES=$(git log origin/${{ github.event.pull_request.base.ref }}.. --pretty="- %s")" >> $GITHUB_ENV
 
       - name: Post Release notes
         run: |
