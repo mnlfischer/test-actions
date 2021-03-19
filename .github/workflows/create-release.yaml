@@ -31,9 +31,9 @@ jobs:
       - name: Set release notes
         id: release_notes
         run: |
-            git branch
-            git log HEAD ^${{ github.event.pull_request.base.sha }} --pretty="- %s"
-            echo "RELEASE_NOTES=$(git log HEAD ^${{ github.event.pull_request.base.sha }} --pretty="- %s")" >> $GITHUB_ENV
+            echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+            echo "$(git log HEAD ^${{ github.event.pull_request.base.sha }} --pretty="- %s")" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
 
       - name: Post Release notes
         run: |
