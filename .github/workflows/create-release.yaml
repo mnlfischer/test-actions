@@ -10,7 +10,9 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && contains(github.ref, "release")
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.ref, 'release')
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v2
