@@ -37,6 +37,9 @@ jobs:
             echo "$(git log HEAD ^${{ github.event.pull_request.base.sha }} --pretty="- %s")" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
 
+      - name: test
+        run: echo ${{ toJSON(github) }}
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
