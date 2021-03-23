@@ -10,7 +10,9 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.ref, 'release')
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v2
@@ -34,11 +36,6 @@ jobs:
             echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
             echo "$(git log HEAD ^${{ github.event.pull_request.base.sha }} --pretty="- %s")" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
-
-      - name: Post Release notes
-        run: |
-          echo "${{ env.RELEASE_TAG }}"
-          echo "${{ env.RELEASE_NOTES }}"
 
       - name: Create Release
         id: create_release
